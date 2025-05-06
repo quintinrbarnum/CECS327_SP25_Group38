@@ -29,17 +29,18 @@ def main():
                if not data:
                     print("Client disconnected")
                     break
-               if(data == "1" or "Average Moisture"):
+               if(data == "1" or data.lower() == "average moisture"):
                     response = avg(connection_string, fridgeQuery)
                     final_str = "Average Moisture in the past three hours: " + str(response) + "%"
-               elif(data == "2" or "Average Water Consumption"):
+               elif(data == "2" or data.lower() == "average water consumption"):
                     response = avg(connection_string, waterQuery)
-                    final_str = "Average Water Consumption of Dishwasher: " + str(response) + "Gallons"
-               elif(data == "3" or "Most Electricity Consumed"):
+                    final_str = "average water consumption of dishwasher: " + str(response) + " Gallons"
+               elif(data == "3" or data.lower() == "most electricity consumed"):
                     response = find_sum(connection_string, sumQuery)
-                    final_str = "Most Electricity Consumed: " + str(max(response)) + "Watts"
+                    maximum = max(response)
+                    final_str = "Most Electricity Consumed: " + str(maximum) + " Watts"
                else:
-                    final_str=  "Invalid Query please select one of the options available!"
+                    final_str =  "Invalid Query please select one of the options available!"
                client_socket.send(final_str.encode())
           
      
@@ -50,9 +51,7 @@ def find_sum(connect_string, query):
           cur = conn.cursor()
           cur.execute(query)
           rows = cur.fetchall()
-          colnames = [desc[0] for desc in cur.description]
-          df = pd.DataFrame(rows, columns=colnames)
-          return rows
+          return rows[0]
      else: 
           return None
           
