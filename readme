@@ -1,0 +1,5 @@
+Add Main.py to own VM instance to receive data. Note the public IP address and ensure you can assign an empty port when starting the program
+Add send.py to another VM Instance. The program will ask for the public IP address of the other instance as well as the port. 
+
+Ensure the firewall allows access for inbound and outbound communications on both VMs. Once connected. Select an option using the numbers associated with the instructions, or type out the actual option (capitalization does not matter)
+The data will be sent back to the send.py from the main.py from neondb
